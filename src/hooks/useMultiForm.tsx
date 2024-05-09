@@ -28,5 +28,8 @@ export function useMultiForm(formSteps: ReactElement[]) {
     next,
     back,
     goTo,
+    formSteps,
+    isTheFirstStep: currentFormStepIdx === 0,
+    isTheLastStep: currentFormStepIdx === formSteps.length - 1,
   }
 }
