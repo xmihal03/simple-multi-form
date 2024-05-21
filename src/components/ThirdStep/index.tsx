@@ -1,14 +1,13 @@
 import { FormWrapper } from '../FormWrapper'
+import { FormData } from '../../types'
 
-type ThirdStepData = {
-  password: string
+type ThirdStepProps = {
+  formInputData: FormData[][]
+  updateFormValues: (fields: Partial<FormData>) => void
 }
 
-type ThirdStepProps = ThirdStepData & {
-  updateFormValues: (fields: Partial<ThirdStepData>) => void
-}
-
-export function ThirdStep({ password, updateFormValues }: ThirdStepProps) {
+export function ThirdStep({ formInputData, updateFormValues }: ThirdStepProps) {
+  const [password] = formInputData[2].map((data) => data.value)
   return (
     <FormWrapper title="Third Step">
       <label>Password</label>
@@ -17,7 +16,9 @@ export function ThirdStep({ password, updateFormValues }: ThirdStepProps) {
         autoFocus
         required
         value={password}
-        onChange={(e) => updateFormValues({ password: e.target.value })}
+        onChange={(e) =>
+          updateFormValues({ id: 'password', value: e.target.value })
+        }
       />
     </FormWrapper>
   )

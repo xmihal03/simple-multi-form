@@ -1,18 +1,17 @@
 import { FormWrapper } from '../FormWrapper'
+import { FormData } from '../../types'
 
-type SecondStepData = {
-  phone: string
-  address: string
+type SecondStepProps = {
+  formInputData: FormData[][]
+  updateFormValues: (fields: Partial<FormData>) => void
 }
 
-type SecondStepProps = SecondStepData & {
-  updateFormValues: (fields: Partial<SecondStepData>) => void
-}
 export function SecondStep({
-  phone,
-  address,
+  formInputData,
   updateFormValues,
 }: SecondStepProps) {
+  const [phone, address] = formInputData[1].map((data) => data.value)
+
   return (
     <FormWrapper title="Second Step">
       <label>Phone</label>
@@ -21,14 +20,18 @@ export function SecondStep({
         autoFocus
         required
         value={phone}
-        onChange={(e) => updateFormValues({ phone: e.target.value })}
+        onChange={(e) =>
+          updateFormValues({ id: 'phone', value: e.target.value })
+        }
       />
       <label>Address</label>
       <input
         type="text"
         required
         value={address}
-        onChange={(e) => updateFormValues({ address: e.target.value })}
+        onChange={(e) =>
+          updateFormValues({ id: 'address', value: e.target.value })
+        }
       />
     </FormWrapper>
   )
